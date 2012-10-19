@@ -2,10 +2,14 @@
   (:use clojure.test
         game-of-life.core))
 
-(deftest a-test
+(deftest canary
   (testing "canary test"
     (is (= true true))))
 
-(deftest b-test
-  (testing "play-life"
-    (is (= (list) (play-life (list))))))
+(deftest life-empty
+  (testing "life with empty list"
+    (is (= '() (play-life '())))))
+
+(deftest life-one-cell
+	(testing "life with one cell"
+	(is (= '() (play-life '("1"))))))
