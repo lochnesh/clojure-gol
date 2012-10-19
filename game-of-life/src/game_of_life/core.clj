@@ -2,7 +2,7 @@
 
 (defn play-life
 	[life-board]
-	(if (count life-board) (list))	
+	(if (= (count life-board) 0) (list))	
 	)
 
 (defn -main
