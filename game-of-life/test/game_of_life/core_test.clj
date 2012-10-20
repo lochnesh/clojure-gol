@@ -6,60 +6,44 @@
   (testing "canary test"
     (is (= true true))))
 
-(deftest life-empty
-  (testing "life with empty list return empty list"
-    (is (= #{} (play-life #{})))))
+(def base-board #{[1,1]})
+(def one-neighbor-board (conj base-board [0,0]))	
+(def two-neighbor-board (conj one-neighbor-board [0,1]))
+(def three-neighbor-board (conj two-neighbor-board [0,2]))
+(def four-neighbor-board (conj three-neighbor-board [1,0]))
+(def five-neighbor-board (conj four-neighbor-board [1,2]))
+(def six-neighbor-board (conj five-neighbor-board [2,0]))
+(def seven-neighbor-board (conj six-neighbor-board [2,1]))
+(def eight-neighbor-board (conj seven-neighbor-board [2,2]))
 
-(deftest life-one-cell
-	(testing "life with one cell returns empty list"
-	  (is (= #{} (play-life #{[1,1]})))))
 	
-(deftest life-two-cell
-	(testing "life with two cells returns empty list"
-	  (is (= #{} (play-life #{[1,1],[2,1]})))))
+(deftest all-life-dies
+  (testing "all cells die in board with two cells or less"
+    (is (= #{} (play-life #{})))
+	(is (= #{} (play-life base-board)))
+	(is (= #{} (play-life base-board)))))
 	
-(deftest two-neighbors-lives
-	(testing "cell with two neighbors lives"
-	  (is (= #{[1,1]} (play-life #{[0,1],[1,1],[2,1]})))))
+(deftest lives-to-next-generation
+	(testing "cell with two or three neighbors lives"
+	  (is (contains? (play-life two-neighbor-board) [1,1]))
+	  (is (contains? (play-life three-neighbor-board) [1,1]))))
 	  
-(deftest three-neighbors-lives
-	(testing "cell with three neighbors lives"
-	  (is (contains? (play-life #{[0,0],[0,1],[0,2],[1,1]}) [1,1]))))
-	  
-(deftest four-neighbors-dies
-	(testing "cell with four neighbors dies"
-	  (is (not(contains? (play-life #{[0,0],[0,1],[0,2],[1,0],[1,1]}) [1,1])))))
+(deftest over-crowding
+	(testing "cell with more than fourn neighbors dies"
+	  (is (not(contains? (play-life four-neighbor-board) [1,1])))
+	  (is (not(contains? (play-life five-neighbor-board) [1,1])))
+	  (is (not(contains? (play-life six-neighbor-board) [1,1])))
+	  (is (not(contains? (play-life seven-neighbor-board) [1,1])))
+	  (is (not(contains? (play-life eight-neighbor-board) [1,1])))))	
 	
-;---------------NEIGHBOR TESTS	
-	
-(deftest one-neighbor
-	(testing "finds one neighbor"
-		(is (= 1 (count-neighbors [1,1] #{[0,0]})))))
-		
-(deftest two-neighbors
-	(testing "finds two neighbors"
-		(is (= 2 (count-neighbors [1,1] #{[0,0],[0,1]})))))
-		
-(deftest three-neighbors
-	(testing "finds three neighbors"
-		(is (= 3 (count-neighbors [1,1] #{[0,0],[0,1],[0,2]})))))
-		
-(deftest four-neighbors
-	(testing "finds four neighbors"
-		(is (= 4 (count-neighbors [1,1] #{[0,0],[0,1],[0,2],[1,0]})))))
-		
-(deftest five-neighbors
-	(testing "finds five neighbors"
-		(is (= 5 (count-neighbors [1,1] #{[0,0],[0,1],[0,2],[1,0],[1,2]})))))
-		
-(deftest six-neighbors
-	(testing "finds six neighbors"
-		(is (= 6 (count-neighbors [1,1] #{[0,0],[0,1],[0,2],[1,0],[1,2],[2,0]})))))
-		
-(deftest seven-neighbors
-	(testing "finds seven neighbors"
-		(is (= 7 (count-neighbors [1,1] #{[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1]})))))		
-		
-(deftest eight-neighbors
-	(testing "finds eight neighbors"
-		(is (= 8 (count-neighbors [1,1] #{[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[2,1],[2,2]})))))				
+(deftest neighbor-counts
+	(testing "test finding neighbors"
+		(is (= 0 (count-neighbors [1,1] base-board)))
+		(is (= 1 (count-neighbors [1,1] one-neighbor-board)))
+		(is (= 2 (count-neighbors [1,1] two-neighbor-board)))
+		(is (= 3 (count-neighbors [1,1] three-neighbor-board)))
+		(is (= 4 (count-neighbors [1,1] four-neighbor-board)))
+		(is (= 5 (count-neighbors [1,1] five-neighbor-board)))
+		(is (= 6 (count-neighbors [1,1] six-neighbor-board)))
+		(is (= 7 (count-neighbors [1,1] seven-neighbor-board)))		
+		(is (= 8 (count-neighbors [1,1] eight-neighbor-board)))))				
