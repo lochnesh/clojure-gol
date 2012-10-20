@@ -14,14 +14,19 @@
 	  (if (contains? life-board [(+ row 1),(- col 1)]) 1 0)
 	  (if (contains? life-board [(+ row 1),(+ col 1)]) 1 0)))
 	  
-	  
+
 
 (defn play-life
 	[life-board]
 	
 	;all cells die if board has two or less live cells
     (if (<= (count life-board) 2) #{}
-		(set (filter (fn [it] (>= (count-neighbors it life-board) 2)) life-board))))
+		(set (filter 
+		(fn 
+		[it]
+		  (def neighbors (count-neighbors it life-board))
+		  (and (>= neighbors 2)(< neighbors 4))) 
+		life-board))))
 
 (defn -main
   "I don't do a whole lot."

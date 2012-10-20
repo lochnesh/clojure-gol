@@ -21,6 +21,16 @@
 (deftest two-neighbors-lives
 	(testing "cell with two neighbors lives"
 	  (is (= #{[1,1]} (play-life #{[0,1],[1,1],[2,1]})))))
+	  
+(deftest three-neighbors-lives
+	(testing "cell with three neighbors lives"
+	  (is (contains? (play-life #{[0,0],[0,1],[0,2],[1,1]}) [1,1]))))
+	  
+(deftest four-neighbors-dies
+	(testing "cell with four neighbors dies"
+	  (is (not(contains? (play-life #{[0,0],[0,1],[0,2],[1,0],[1,1]}) [1,1])))))
+	
+;---------------NEIGHBOR TESTS	
 	
 (deftest one-neighbor
 	(testing "finds one neighbor"
