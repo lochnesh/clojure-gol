@@ -5,8 +5,16 @@
 	(def row (get cell 0))
 	(def col (get cell 1))
     (+ 
+	  (if (contains? life-board [(- row 1),(- col 1)]) 1 0)
 	  (if (contains? life-board [(- row 1),col]) 1 0)
-	  (if (contains? life-board [(+ row 1),col]) 1 0)))
+	  (if (contains? life-board [(- row 1),(+ col 1)]) 1 0)
+	  (if (contains? life-board [(+ row 1),col]) 1 0)
+	  (if (contains? life-board [row,(- col 1)]) 1 0)
+	  (if (contains? life-board [row,(+ col 1)]) 1 0)
+	  (if (contains? life-board [(+ row 1),(- col 1)]) 1 0)
+	  (if (contains? life-board [(+ row 1),(+ col 1)]) 1 0)))
+	  
+	  
 
 (defn play-life
 	[life-board]
