@@ -35,6 +35,10 @@
 	  (is (not(contains? (play-life six-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life seven-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life eight-neighbor-board) [1,1])))))	
+	  
+;(deftest reproduction
+;	(testing "any dead cell with exactly 3 neighbors comes to life"
+;	  (is (contains? (play-life (set (filter (fn [it] (not(= it [1,1]))) three-neighbor-board))) [1,1]))))
 	
 (deftest neighbor-counts
 	(testing "test finding neighbors"

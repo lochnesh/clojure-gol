@@ -25,7 +25,7 @@
 		(fn 
 		[it]
 		  (def neighbors (count-neighbors it life-board))
-		  (and (>= neighbors 2)(< neighbors 4))) 
+		    (and (>= neighbors 2)(< neighbors 4))) 
 		life-board))))
 
 (defn -main
