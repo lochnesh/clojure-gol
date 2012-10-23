@@ -29,16 +29,21 @@
 	  (is (contains? (play-life three-neighbor-board) [1,1]))))
 	  
 (deftest over-crowding
-	(testing "cell with more than fourn neighbors dies"
+	(testing "cell with more than four neighbors dies"
 	  (is (not(contains? (play-life four-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life five-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life six-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life seven-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life eight-neighbor-board) [1,1])))))	
 	  
-;(deftest reproduction
-;	(testing "any dead cell with exactly 3 neighbors comes to life"
-;	  (is (contains? (play-life (set (filter (fn [it] (not(= it [1,1]))) three-neighbor-board))) [1,1]))))
+(deftest reproduction
+	(testing "any dead cell with exactly 3 neighbors comes to life"
+	  (is (contains? (play-life (disj three-neighbor-board [1,1])) [1,1])))) 
+
+(deftest build-full-board
+	(testing "building a full board"
+		(is (= (count full-board) 9))
+		(is (contains? full-board [0,0]))))
 	
 (deftest neighbor-counts
 	(testing "test finding neighbors"

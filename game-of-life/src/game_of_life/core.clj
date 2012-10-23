@@ -14,7 +14,7 @@
 	  (if (contains? life-board [(+ row 1),(- col 1)]) 1 0)
 	  (if (contains? life-board [(+ row 1),(+ col 1)]) 1 0)))
 	  
-
+(def full-board #{[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]})
 
 (defn play-life
 	[life-board]
@@ -22,11 +22,11 @@
 	;all cells die if board has two or less live cells
     (if (<= (count life-board) 2) #{}
 		(set (filter 
-		(fn 
-		[it]
-		  (def neighbors (count-neighbors it life-board))
-		    (and (>= neighbors 2)(< neighbors 4))) 
-		life-board))))
+		  (fn 
+		    [it]
+			(def neighbors (count-neighbors it life-board))
+		      (and (>= neighbors 2)(< neighbors 4))) 
+		        full-board))))
 
 (defn -main
   "I don't do a whole lot."
@@ -34,5 +34,6 @@
   (println args "Hello, World!")
   (def life-board #{})
   (play-life life-board)
-  (count-neighbors [2,1] #{[2,1],[1,1]}))
+  (count-neighbors [2,1] #{[2,1],[1,1]})
+  (println full-board))
 
