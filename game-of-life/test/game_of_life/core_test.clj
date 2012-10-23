@@ -42,8 +42,8 @@
 
 (deftest build-full-board
 	(testing "building a full board"
-		(is (= (count full-board) 9))
-		(is (contains? full-board [0,0]))))
+		(is (= (count (full-board 3 3)) 9))
+		(is (contains? (full-board 3 3) [0,0]))))
 	
 (deftest neighbor-counts
 	(testing "test finding neighbors"
