@@ -1,10 +1,12 @@
 # game-of-life
 
-A Clojure library designed to ... well, that part is up to you.
+A simple implementation of Conway's Game of Life in clojure
+
+http://en.wikipedia.org/wiki/Conway's_Game_of_Life
 
 ## Usage
 
-FIXME
+meh
 
 ## License
 
