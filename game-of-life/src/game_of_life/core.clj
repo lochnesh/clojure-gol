@@ -22,12 +22,19 @@
 	[life-board]
 	
 	;all cells die if board has two or less live cells
-    (if (<= (count life-board) 2) #{}
+    (if (<= (count life-board) 1) #{}
 		(set (filter 
 		  (fn 
 		    [it]
 			(def neighbors (count-neighbors it life-board))
-		      (and (>= neighbors 2)(< neighbors 4))) 
+		      (and
+			    ;less than four neighbors
+			    (< neighbors 4)
+			    (or
+				  ;two or three neighbors and alive 
+				  (and (>= neighbors 2) (contains? life-board it))
+				  ;exactly three neighbors and not alive
+				  (and (= neighbors 3) (not (contains? life-board it)))))) 
 		        (full-board 3 3)))))
 
 (defn -main

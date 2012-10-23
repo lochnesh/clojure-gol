@@ -18,9 +18,8 @@
 
 	
 (deftest all-life-dies
-  (testing "all cells die in board with two cells or less"
+  (testing "all cells die in board with one cell or less"
     (is (= #{} (play-life #{})))
-	(is (= #{} (play-life base-board)))
 	(is (= #{} (play-life base-board)))))
 	
 (deftest lives-to-next-generation
@@ -38,7 +37,8 @@
 	  
 (deftest reproduction
 	(testing "any dead cell with exactly 3 neighbors comes to life"
-	  (is (contains? (play-life (disj three-neighbor-board [1,1])) [1,1])))) 
+	  (is (contains? (play-life (disj three-neighbor-board [1,1])) [1,1]))
+	  (is (not (contains? (play-life (disj two-neighbor-board [1,1])) [1,1]))))) 
 
 (deftest build-full-board
 	(testing "building a full board"
