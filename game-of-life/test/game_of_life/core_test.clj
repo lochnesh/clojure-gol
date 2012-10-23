@@ -17,18 +17,18 @@
 (def eight-neighbor-board (conj seven-neighbor-board [2,2]))
 
 	
-(deftest all-life-dies
-  (testing "all cells die in board with one cell or less"
+(deftest under-population
+  (testing "any live cell with fewer than two live neighbors dies"
     (is (= #{} (play-life #{})))
 	(is (= #{} (play-life base-board)))))
 	
 (deftest lives-to-next-generation
-	(testing "cell with two or three neighbors lives"
+	(testing "any live cell with two or three neighbors lives on"
 	  (is (contains? (play-life two-neighbor-board) [1,1]))
 	  (is (contains? (play-life three-neighbor-board) [1,1]))))
 	  
 (deftest over-crowding
-	(testing "cell with more than four neighbors dies"
+	(testing "any live cell with more than three live neighbors dies"
 	  (is (not(contains? (play-life four-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life five-neighbor-board) [1,1])))
 	  (is (not(contains? (play-life six-neighbor-board) [1,1])))
@@ -36,9 +36,10 @@
 	  (is (not(contains? (play-life eight-neighbor-board) [1,1])))))	
 	  
 (deftest reproduction
-	(testing "any dead cell with exactly 3 neighbors comes to life"
+	(testing "any dead cell with exactly three live neighbors becomes a live cell"
 	  (is (contains? (play-life (disj three-neighbor-board [1,1])) [1,1]))
-	  (is (not (contains? (play-life (disj two-neighbor-board [1,1])) [1,1]))))) 
+	  (is (not (contains? (play-life (disj two-neighbor-board [1,1])) [1,1])))
+	  (is (not (contains? (play-life (disj four-neighbor-board [1,1])) [1,1]))))) 
 
 (deftest build-full-board
 	(testing "building a full board"
